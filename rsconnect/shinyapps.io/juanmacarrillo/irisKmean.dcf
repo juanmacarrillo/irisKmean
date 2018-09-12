@@ -1,0 +1,12 @@
+name: irisKmean
+title: irisKmean
+username:
+account: juanmacarrillo
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 438207
+bundleId: 1581901
+url: https://juanmacarrillo.shinyapps.io/irisKmean/
+when: 1536753471.67244
+asMultiple: FALSE
+asStatic: FALSE

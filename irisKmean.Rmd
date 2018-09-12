@@ -1,0 +1,80 @@
+---
+title: "Iris clustering"
+author: "Juan M. Carrillo"
+date: "September 12, 2018"
+output:
+  slidy_presentation: default
+  ioslides_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Objective
+
+The main objective is to create an interactive `shiny` application.
+
+I decide to let the user cluster a dataset into different groups according to the characteristics of its features.
+
+The dataset to cluster will be the ubiquitous `iris` dataset since probably the user is familiarized with it.
+
+## Inputs
+
+The user will be presented with four different inputs:
+ 
+ 
+On the side panel:
+
+- Number of clusters: From 2 to 10 the user will decide how many groups the data set will be clustered in.
+- X axis: The plot generated will use the x-axis chosen by the user.
+- Y axis: The plot will use the y-axis selected.
+ 
+ 
+On the main panel:
+
+- By dragging the pointer on the generated plot, the user will be able to select any point.
+
+## Output
+
+Two will be the elements shown as a output on the main panel:
+
+- A plot with the axis selected by the user and each case represented and colored by its cluster and the centroid of the cluster.
+- A table with information from the `iris` dataset of the selected points.
+
+
+## Main plot
+
+Each case is assigned to a cluster using the `kmeans` function from the `stat` package.
+
+The user should see a plot similar to the following one:
+
+```{r plot, echo = F}
+library (ggplot2)
+set.seed (13920)
+
+irisWoSpecies <- iris [, -5] # Remove the `Species` variable
+clustResult <- kmeans (x = irisWoSpecies, centers = 3)
+
+clustIris <- cbind (iris, cluster = clustResult$cluster)
+centroids <- as.data.frame (clustResult$centers)
+
+for (i in 1:nrow (centroids)) {
+    centroids$cluster[i] <- i 
+}
+
+ggplot (data = clustIris, 
+        aes (x = clustIris [, "Petal.Length"],
+             y = clustIris [, "Petal.Width"])) +
+    geom_point (aes (color = as.factor (cluster)) ) +
+    geom_point (data = centroids,
+                aes (x = centroids [, "Petal.Length"],
+                     y = centroids [, "Petal.Width"], color = factor (cluster)),
+                shape = 4, size = 10) +
+    theme (plot.title = element_text (size = 12)) +
+    labs (title = "Clustering of the Iris data set",
+          x = "Petal.Length",
+          y = "Petal.Width",
+          color = "Clusters")
+```
+

@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/419116/dc707e120dec49b6a6c5df69ef850793
+bundleId: https://api.rpubs.com/api/v1/document/419116/dc707e120dec49b6a6c5df69ef850793
+url: http://rpubs.com/JuanCarrillo/419116
+when: 1536754038.69534
